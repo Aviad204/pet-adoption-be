@@ -1,0 +1,2 @@
+ALTER TABLE users
+ADD isAdmin TINYINT DEFAULT(0);

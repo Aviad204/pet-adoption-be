@@ -1,0 +1,6 @@
+ALTER TABLE pets
+ADD COLUMN ownerID VARCHAR(300) DEFAULT(null), 
+ADD COLUMN adoptionStatus VARCHAR(300) DEFAULT(null),
+DROP COLUMN adoptOwnerID,
+DROP COLUMN fosterOwnerID
+;
