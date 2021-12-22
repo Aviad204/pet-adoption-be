@@ -5,8 +5,8 @@ const cors = require("cors");
 const { postgrator } = require("./lib/db");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cookieParser());
 app.use(express.json());
 app.use("/pets", require("./routes/pets"));
