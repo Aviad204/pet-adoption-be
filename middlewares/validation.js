@@ -1,14 +1,15 @@
-const Ajv = require("ajv");
-const ajv = new Ajv();
-
 const getValidationMiddleware = (schema) => {
-  const validate = ajv.compile(schema);
   return (req, res, next) => {
-    const valid = validate(req.body);
-    if (!valid) {
+    console.log("Validating the schema..");
+    const result = schema.validate(req.body);
+    if (result.error) {
+      console.log(
+        "Error in validating the data: " + result.error.details[0].message
+      );
       res.status(400);
-      res.send({ errors: validate.errors });
+      res.send(result.error.details[0].message);
     } else {
+      console.log("Successfully validated the schema, continue...");
       next();
     }
   };

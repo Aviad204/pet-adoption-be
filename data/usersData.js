@@ -42,7 +42,6 @@ const updateUserData = async (userID, newData) => {
   } else if (newData.bio == null && oldUserDetails.bio) {
     newData.bio = oldUserDetails.bio;
   }
-  const hashPassword = await bcrypt.hash(newData.password, 10);
   const sql = SQL`UPDATE users SET email=${newData.email} , firstName=${newData.firstName} , lastName=${newData.lastName} , phoneNumber=${newData.phoneNumber} ,bio=${newData.bio}, hashPassword=${newData.password}  WHERE users.id = ${userID}`;
   return query(sql);
 };
@@ -53,3 +52,14 @@ const getSingleUserByEmail = (email) => {
   return query(sql);
 };
 exports.getSingleUserByEmail = getSingleUserByEmail;
+
+const getFullUserData = async (userID) => {
+  const sqlUser = SQL`SELECT * FROM users WHERE users.id = ${userID}`;
+  const userData = await query(sqlUser);
+  const sqlUserPets = SQL`SELECT * FROM pets WHERE pets.ownerID = ${userID}`;
+  const userPetsData = await query(sqlUserPets);
+  delete userData[0].hashPassword;
+  userData[0].ownedPets = userPetsData;
+  return userData[0];
+};
+exports.getFullUserData = getFullUserData;

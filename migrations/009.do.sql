@@ -1,0 +1,2 @@
+ALTER TABLE pets
+ADD COLUMN dateCreated INT(255) DEFAULT(null);

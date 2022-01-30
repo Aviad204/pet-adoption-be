@@ -1,0 +1,2 @@
+ALTER TABLE savedList
+CHANGE COLUMN ownerID userWhoSavedID VARCHAR(300) NOT NULL;
